@@ -1,8 +1,13 @@
+"use client";
+
 import React from 'react';
 import Link from 'next/link'
 import mindmapHero from '@/public/image.png'
 import Button from '@/components/Button';
 import Image from 'next/image';
+
+import { Authenticated, Unauthenticated } from 'convex/react';
+import { SignInButton, UserButton } from '@clerk/nextjs';
 
 export default function Home() {
   return (
@@ -10,15 +15,21 @@ export default function Home() {
       {/* Top Navbar */}
       <nav className="flex items-center justify-between px-6 py-4 border-b border-gray-200">
         <div className="flex items-center space-x-8">
-          <Link href="/" className="text-2xl font-bold text-foreground">
-            TheFlowMind
+          <Link href="/" className="">
+            <Image src="/logo.png" width={195} height={150} alt="The Flow Mind Logo"/>
           </Link>
           
         </div>
-        <div className="flex items-center space-x-4">
-          <Button textColor='text-gray-500' hoverTextColor='text-gray-500' bgColor='bg-white' hoverBgColor='hover:bg-gray-100' borderColor='border-none'>
-            Login
-          </Button>
+        <div className="flex items-center space-x-4">ī
+            <Unauthenticated>
+              <SignInButton>
+                <Button textColor='text-gray-500' hoverTextColor='text-gray-500' bgColor='bg-white' hoverBgColor='hover:bg-gray-100' borderColor='border-none'>Log in
+                </Button>
+              </SignInButton>
+            </Unauthenticated>
+            <Authenticated>
+              <UserButton/>
+            </Authenticated>
           <Button variant='outline' textColor='text-gray-500' hoverTextColor='text-gray-500' bgColor='bg-white' hoverBgColor='hover:bg-gray-100' borderColor='border-gray-200' borderWidth='border-[0.5px]'>
             Try Now
           </Button>
@@ -58,7 +69,7 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Right Content - Mind Map Mockup */}
+          {/* Right Content */}
           <div className="flex justify-center lg:justify-end">
             <div className="relative">
               <Image 
@@ -74,3 +85,5 @@ export default function Home() {
     </div>
   );
 }
+
+
