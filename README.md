@@ -47,5 +47,15 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 - Now we can follow documentation and go to clerk jwt , select convex and name it convex
 - make covex/auth.config.ts
 - Make a <code>provider</code> folder in root and make file <code>convex-client-provider.tsx</code>. write code and then wrap children in layout.tsx of app folder with the provider <code>ConexClientProvider</code>
+- Make a dashboard and design side bar and organization sidebar
+- Go to clerk and enable organization , and see in JWT convex that we can use various methods like <code>org.id</code> <code>org.name</code> <code>org.role</code> etc ( you can see more of such in already created jwt template), add org_role and org_id in claims.
+- now we are going to add shadcn dialog, so install using <code>npx shadcn@latest add dialog</code>
+- Now ew are goind to add shancn tooltip, so install using <code>npx shadcn@latest add tooltip</code>
+- Added a plus button to sidebar to add organizatin
+- Added a <code>list.tsx</code> which shows all current organization to sidebar above plus icon
+- Added <code>item.tsx</code> to decorate the list items ( organization ) better (visually)
+- You will get nextjs config error, for img.clerk.com not in config, as we used images of organization in decorating organizations better in sidebar , so update <code>next.config.ts</code> and images config
+- Creating file <code>hint.tsx</code> for hinting on hover to any element.. this will be implemented using <code>tooltip</code> that we have downloaded before 
+- 9:37pm 1-Sept-2025: Now working on Organization sidebar. 
 - <code></code>
 - <code></code>

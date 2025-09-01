@@ -20,7 +20,7 @@ export default function Home() {
           </Link>
           
         </div>
-        <div className="flex items-center space-x-4">ī
+        <div className="flex items-center space-x-4">
             <Unauthenticated>
               <SignInButton>
                 <Button textColor='text-gray-500' hoverTextColor='text-gray-500' bgColor='bg-white' hoverBgColor='hover:bg-gray-100' borderColor='border-none'>Log in
