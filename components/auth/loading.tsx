@@ -8,7 +8,7 @@ export const Loading = ()=>{
                 alt="Loading"
                 width={120}
                 height={120}
-                className="animate-pulse duration-700"
+                className="animate-pulse duration-500"
             /> 
         </div>
     )
