@@ -3,7 +3,7 @@
 import React from 'react';
 import Link from 'next/link'
 import mindmapHero from '@/public/image.png'
-import Button from '@/components/Button';
+import {Button} from '@/components/ui/button'
 import Image from 'next/image';
 
 import { Authenticated, Unauthenticated } from 'convex/react';
@@ -22,19 +22,20 @@ export default function Home() {
         </div>
         <div className="flex items-center space-x-4">
             <Unauthenticated>
-              <SignInButton>
-                <Button textColor='text-gray-500' hoverTextColor='text-gray-500' bgColor='bg-white' hoverBgColor='hover:bg-gray-100' borderColor='border-none'>Log in
+              <SignInButton mode='modal'>
+                <Button variant={"ghost"}>
+                  Log in
                 </Button>
               </SignInButton>
             </Unauthenticated>
             <Authenticated>
               <UserButton/>
             </Authenticated>
-          <Button variant='outline' textColor='text-gray-500' hoverTextColor='text-gray-500' bgColor='bg-white' hoverBgColor='hover:bg-gray-100' borderColor='border-gray-200' borderWidth='border-[0.5px]'>
+          <Button variant='outline' className='cursor-pointer'>
             Try Now
           </Button>
-          <Link href="/dashboard">
-            <Button size='md' bgColor='bg-[#7c3bec]' hoverBgColor='hover:bg-violet-700' className="font-medium">
+          <Link href="/dashboard" >
+            <Button className="font-medium bg-[#7c3bec] hover:bg-violet-700 cursor-pointer">
               Dashboard
             </Button>
           </Link>
@@ -59,11 +60,11 @@ export default function Home() {
             </div>
             <div className="flex flex-col sm:flex-row gap-4">
               <Link href="/dashboard">
-                <Button bgColor='bg-[#7c3bec]' hoverBgColor='hover:bg-violet-700' className="font-medium">
+                <Button className="font-medium bg-[#7c3bec] hover:bg-violet-700 cursor-pointer" size="lg">
                   Go to Dashboard
                 </Button>
               </Link>
-              <Button variant='outline' bgColor='bg-white' textColor='text-black' borderColor='border-black' hoverBgColor='hover:bg-black' className="font-medium">
+              <Button variant='outline' className="font-medium cursor-pointer" size="lg">
                 Try Now!
               </Button>
             </div>
