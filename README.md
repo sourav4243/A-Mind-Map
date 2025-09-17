@@ -57,5 +57,8 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 - You will get nextjs config error, for img.clerk.com not in config, as we used images of organization in decorating organizations better in sidebar , so update <code>next.config.ts</code> and images config
 - Creating file <code>hint.tsx</code> for hinting on hover to any element.. this will be implemented using <code>tooltip</code> that we have downloaded before 
 - 9:37pm 1-Sept-2025: Now working on Organization sidebar. 
-- <code></code>
+- Added organization switcher by clerk, and added team boards and favorite boards buttons
+- Configuring Search bar, created <code>SearchInput.tsx file</code> and downloading <code>npm i query-string</code> to easily make url of objects or get parsed the object to make url. <code>npm i usehooks-ts</code> to use ready made react hooks. Do <code>npx shadcn@latest add input</code>.
+- Added InviteButton to invite members to the organization
+- 7 sept 2am: Working on dashboard page
 - <code></code>
