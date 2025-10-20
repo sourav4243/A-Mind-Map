@@ -10,7 +10,7 @@ const images = [
 export const create = mutation({
     // args which are required when create a new board
     args: {
-        ordId: v.string(),
+        orgId: v.string(),
         title: v.string(),
     },
     handler: async (context, args) => {
@@ -24,7 +24,7 @@ export const create = mutation({
 
         const board = await context.db.insert("boards", {
             title: args.title,
-            orgId: args.ordId,
+            orgId: args.orgId,
             authorId: identity.subject,
             authorName: identity.name!,     // ! is added to tell trust me bro, you think name is null but it will not be null
             imageUrl: randomImage
