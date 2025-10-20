@@ -68,7 +68,6 @@ export const BoardList = ({orgId, query} : BoardListProps) =>{
                 ))}
 
             </div>
-            {/* {JSON.stringify(data)}; */}
         </div>
     );
 };
