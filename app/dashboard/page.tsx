@@ -22,7 +22,7 @@ const page = ({
             <EmptyOrg/> 
             ) : (
                 <BoardList
-                    ordId = {organization.id}
+                    orgId = {organization.id}
                     query = {searchParams}
                 />
             )}
