@@ -32,4 +32,20 @@ export const create = mutation({
 
         return board;
     }
-})
+});
+
+
+export const remove = mutation({
+    args: {id: v.id("boards")},
+    handler: async(context, args) => {
+        const identity = await context.auth.getUserIdentity();
+
+        if(!identity){
+            throw new Error("Unauthorized");
+        }
+
+        // TODO: Later check to delete favorite relation as well
+        
+        await context.db.delete(args.id);
+    },
+});
