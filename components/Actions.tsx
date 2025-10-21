@@ -1,7 +1,7 @@
 "use client";
 
 import { toast } from "sonner";
-import { Link2, Trash2 } from "lucide-react";
+import { Ghost, Link2, Trash2 } from "lucide-react";
 import { DropdownMenuContentProps } from "@radix-ui/react-dropdown-menu";
 import {
     DropdownMenu,
@@ -11,6 +11,8 @@ import {
     DropdownMenuSeparator
 } from "@/components/ui/dropdown-menu"
 
+import { Button } from "@/components/ui/button";
+import { ConfirmModal } from "@/components/ConfirmModal";
 import { useApiMutation } from "@/hooks/use-api-mutation";
 import { api } from "@/convex/_generated/api";
 
@@ -54,17 +56,24 @@ export const Actions = ({children, side, sideOffset, id, title} : ActionsProps) 
                     onClick={onCopyLink}
                     className="p-3 cursor-pointer"
                 >
-                    <Link2 className="h-4 w-4 mr-2"/>
+                    <Link2 className="h-4 w-4 mr-2 text-black"/>
                     Copy board link
                 </DropdownMenuItem>
 
-                <DropdownMenuItem 
-                    onClick={onDelete}
-                    className="p-3 cursor-pointer"
+                <ConfirmModal 
+                    header="Delete board?"
+                    description="This will delete the board and all of it's content."
+                    disabled={pending}
+                    onConfirm={onDelete}
                 >
-                    <Trash2 className="h-4 w-4 mr-2"/>
-                    Delete
-                </DropdownMenuItem>
+                    <Button
+                        variant="ghost"
+                        className="p-3 cursor-pointer text-sm w-full justify-start font-normal"
+                    >
+                        <Trash2 className="h-4 w-4 mr-2"/>
+                        Delete
+                    </Button>
+                </ConfirmModal>
 
             </DropdownMenuContent>
         </DropdownMenu>
