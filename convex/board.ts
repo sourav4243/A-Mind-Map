@@ -4,7 +4,7 @@ import { mutation } from "./_generated/server";
 
 const images = [
     "/placeholders/image1.png",
-    "/placeholders/image1.png"
+    "/placeholders/image2.png"
 ];
 
 export const create = mutation({
