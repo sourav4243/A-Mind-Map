@@ -5,6 +5,8 @@ import Image from "next/image";
 import { useAuth } from "@clerk/nextjs";
 import { formatDistanceToNow } from "date-fns";
 
+import { Skeleton } from "@/components/ui/skeleton";
+
 import { Overlay } from "./Overlay";
 import { Footer } from "./Footer";
 
@@ -53,3 +55,23 @@ export const BoardCard = ({
         </Link>
     );
 };
+
+
+BoardCard.Skeleton = function BoardCardSkeleton() {
+    return (
+        <div className="aspect-[100/127] rounded-lg overflow-hidden">
+            <div className="h-full w-full flex flex-col p-3 gap-y-2">
+                <Skeleton className="w-full flex-1" />
+                <div className="flex justify-between">
+                    <div className="flex flex-col w-full">
+                        <Skeleton className="h-4 w-[80%]" />
+                        <Skeleton className="h-4 w-[50%] mt-1" />
+                    </div>
+                    <div>
+                        <Skeleton className="rounded-full h-8 w-8"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    )
+}
