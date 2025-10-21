@@ -11,7 +11,6 @@ import { MoreHorizontal } from "lucide-react";
 
 import { Overlay } from "./Overlay";
 import { Footer } from "./Footer";
-import { Button } from "@/components/ui/button";
 
 interface BoardCardProps {
     id: string,
