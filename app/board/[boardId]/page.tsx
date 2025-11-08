@@ -1,8 +1,14 @@
 import { Canvas } from "./_components/Canvas";
 
-const BoardIdPage = () => {
+interface BoardIdPageProps {
+    params: {
+        boardId: string;
+    };
+};
+
+const BoardIdPage = ({ params } : BoardIdPageProps) => {
     return (
-        <Canvas/>
+        <Canvas boardId={params.boardId}/>
     );
 };
 
