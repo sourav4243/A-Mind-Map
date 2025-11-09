@@ -2,17 +2,19 @@ import { Room } from "@/components/Room";
 
 import { Canvas } from "./_components/Canvas";
 import { Loading } from "./_components/CanvasLoading";
+import { use } from "react";
 
 interface BoardIdPageProps {
-    params: {
+    params: Promise<{
         boardId: string;
-    };
+    }>;
 };
 
 const BoardIdPage = ({ params } : BoardIdPageProps) => {
+    const { boardId } = use(params);
     return (
-        <Room roomId={params.boardId} fallback={<Loading/>}>
-            <Canvas boardId={params.boardId}/>
+        <Room roomId={boardId} fallback={<Loading/>}>
+            <Canvas boardId={boardId}/>
         </Room>
     );
 };
