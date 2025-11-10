@@ -30,8 +30,6 @@ export async function POST(request: Request) {
         picture: user.imageUrl ?? undefined,
     };
 
-    // console.log({userInfo});
-
     // Start an auth session inside your endpoint
     const session = liveblocks.prepareSession(
         user.id,
@@ -44,6 +42,5 @@ export async function POST(request: Request) {
 
     // Authorize the user and return the result
     const { status, body } = await session.authorize();
-    // console.log({status, body}, "ALLOWED");
     return new Response(body, { status });
 }
