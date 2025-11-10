@@ -9,5 +9,5 @@ export const Participants = () => {
 Participants.Skeleton = function ParticipantsSkeletoin() {
     return (
         <div className="absolute h-12 w-[100px] top-2 right-2 bg-white rounded-md p-3 flex items-center shadow-md"/>
-    )
-}
+    );
+};
