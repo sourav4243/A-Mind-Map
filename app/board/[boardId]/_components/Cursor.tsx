@@ -31,7 +31,7 @@ export const Cursor = memo(({
                 transform: `translateX(${x}px) translateY(${y}px)`
             }}
             height={50}
-            width={50}
+            width={name.length * 10 + 24}
             className="relative drop-shadow-md"
         >
             <MousePointer2
@@ -41,6 +41,13 @@ export const Cursor = memo(({
                     color: connectionIdToColor(connectionId),
                 }}
             />
+
+            <div
+                className="absolute left-5 px-1.5 py-0.5 rounded-md text-xs text-white font-semibold"
+                style={{backgroundColor: connectionIdToColor(connectionId)}}
+            >
+                {name}
+            </div>
         </foreignObject>
     );
 });
