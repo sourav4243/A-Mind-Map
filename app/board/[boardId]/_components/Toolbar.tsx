@@ -2,7 +2,7 @@ import { Circle, MousePointer2, Pencil, Redo2, Square, StickyNote, Type, Undo2 }
 
 import { ToolButton } from "./ToolButton";
 
-import { CanvasMode, CanvasState } from "@/types/canvas";
+import { CanvasState } from "@/types/canvas";
 
 interface ToolbarProps {
     canvasState: CanvasState;
@@ -27,18 +27,14 @@ export const Toolbar = ({
                 <ToolButton 
                     label="Select"
                     icon={MousePointer2}
-                    onClick={() => setCanvasState({mode: CanvasMode.None})}
-                    isActive={
-                        canvasState.mode === CanvasMode.None
-                    }
+                    onClick={() => {}}
+                    isActive={false}
                 />
                 <ToolButton 
                     label="Text"
                     icon={Type}
-                    onClick={()  => setCanvasState({mode: CanvasMode.Inserting})}
-                    isActive={
-                        canvasState.mode ===  CanvasMode.Inserting
-                    }
+                    onClick={()  => {}}
+                    isActive={false}
                 />
                 <ToolButton 
                     label="Sticky note"
