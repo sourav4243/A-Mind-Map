@@ -5,7 +5,7 @@ import { useOthers, useSelf } from "@liveblocks/react";
 
 import { UserAvatar } from "./UserAvatar";
 
-const MAX_SHOWN_USERS = 0;
+const MAX_SHOWN_USERS = 3;
 
 export const Participants = () => {
     const users = useOthers();
