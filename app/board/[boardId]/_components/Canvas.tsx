@@ -121,6 +121,35 @@ export const Canvas = ({boardId} : CanvasProps) => {
         insertLayer 
     ]);
 
+    // A function to allow selecting any layer/shape
+    const onLayerPointerDown = useMutation((
+        { self, setMyPresence },
+        e: React.PointerEvent,
+        layerId: string,
+    ) => {
+        if (
+            canvasState.mode === CanvasMode.Pencil ||
+            canvasState.mode === CanvasMode.Inserting
+        ) {
+            return;
+        }
+
+        history.pause();
+        e.stopPropagation();
+
+        const point = pointerEventToCanvasPoint(e, camera);
+
+        if (!self.presence.selection.includes(layerId)) {
+            setMyPresence({ selection: [layerId]}, {addToHistory: true});
+        }
+        setCanvasState({ mode: CanvasMode.Translating, current: point});
+    }, [
+        setCanvasState, 
+        camera,
+        history, 
+        canvasState.mode,
+    ]);
+
     const selections = useOthersMapped((otherUser) => otherUser.presence.selection);
 
     const layerIdsToColorSelection = useMemo(() => {
@@ -168,7 +197,7 @@ export const Canvas = ({boardId} : CanvasProps) => {
                         <LayerPreview
                             key={layerId}
                             id={layerId}
-                            onLayerPointerDown = { ()=> {} }
+                            onLayerPointerDown = {onLayerPointerDown}
                             selectionColor = {layerIdsToColorSelection[layerId]}
                         />
                     ))}
