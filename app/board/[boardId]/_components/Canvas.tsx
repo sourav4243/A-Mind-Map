@@ -1,7 +1,7 @@
 "use client";
 
 import { nanoid } from "nanoid";
-import { useCallback, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { LiveObject } from "@liveblocks/node";
 
 import { 
@@ -10,8 +10,9 @@ import {
     useCanRedo,
     useMutation,
     useStorage,
+    useOthersMapped,
 } from "@liveblocks/react";
-import { pointerEventToCanvasPoint } from "@/lib/utils";
+import { connectionIdToColor, pointerEventToCanvasPoint } from "@/lib/utils";
 import { Camera, CanvasMode, CanvasState, Color, LayerType, Point } from "@/types/canvas";
 
 import { Info } from "./Info";
@@ -36,9 +37,9 @@ export const Canvas = ({boardId} : CanvasProps) => {
 
     const [camera, setCamera] = useState<Camera>({x:0, y:0})
     const [lastUsedColor, setLastUsedColor] = useState<Color>({
-        r: 0,
-        g: 0,
-        b: 0,
+        r: 113,
+        g: 23,
+        b: 83,
     });
 
     const history = useHistory();
@@ -120,6 +121,22 @@ export const Canvas = ({boardId} : CanvasProps) => {
         insertLayer 
     ]);
 
+    const selections = useOthersMapped((otherUser) => otherUser.presence.selection);
+
+    const layerIdsToColorSelection = useMemo(() => {
+        const layerIdsToColorSelection: Record<string, string> = {};
+
+        for (const user of selections) {
+            const [connectinoId, selection] = user;
+
+            for (const layerId of selection) {
+                layerIdsToColorSelection[layerId] = connectionIdToColor(connectinoId);
+            }
+        } 
+
+        return layerIdsToColorSelection;
+    }, [selections]);
+
     return (
         <main className="h-full w-full relative bg-neutral-100 touch-none">
             <Info boardId={boardId}/>
@@ -152,7 +169,7 @@ export const Canvas = ({boardId} : CanvasProps) => {
                             key={layerId}
                             id={layerId}
                             onLayerPointerDown = { ()=> {} }
-                            selectionColor = "#000"
+                            selectionColor = {layerIdsToColorSelection[layerId]}
                         />
                     ))}
                     <CursorPresense/>
