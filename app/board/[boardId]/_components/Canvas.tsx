@@ -20,6 +20,7 @@ import { Participants } from "./Participants";
 import { Toolbar } from "./Toolbar";
 import { LayerPreview } from "./LayerPreview"; 
 import { CursorPresense } from "./CursorsPresense";
+import { SelectionBox } from "./SelectionBox";
 
 const MAX_LAYERS = 100;
 
@@ -201,6 +202,11 @@ export const Canvas = ({boardId} : CanvasProps) => {
                             selectionColor = {layerIdsToColorSelection[layerId]}
                         />
                     ))}
+
+                    <SelectionBox
+                        onResizeHandlePointerDown={()=>{}}
+                    />
+
                     <CursorPresense/>
                 </g>
             </svg>
