@@ -12,8 +12,8 @@ import {
     useStorage,
     useOthersMapped,
 } from "@liveblocks/react";
-import { connectionIdToColor, pointerEventToCanvasPoint } from "@/lib/utils";
-import { Camera, CanvasMode, CanvasState, Color, LayerType, Point } from "@/types/canvas";
+import { connectionIdToColor, pointerEventToCanvasPoint, resizeBounds } from "@/lib/utils";
+import { Camera, CanvasMode, CanvasState, Color, LayerType, Point, Side, XYWH } from "@/types/canvas";
 
 import { Info } from "./Info";
 import { Participants } from "./Participants";
@@ -79,6 +79,41 @@ export const Canvas = ({boardId} : CanvasProps) => {
         setCanvasState({ mode: CanvasMode.None });
     }, [lastUsedColor]);
 
+
+    // resize logic
+    const resizeSelectedLayer = useMutation((
+        { storage, self },
+        point: Point,
+    ) => {
+        if (canvasState.mode !== CanvasMode.Resizing) {
+            return;
+        }
+
+        const bounds = resizeBounds(canvasState.initialBounds, canvasState.corner, point);
+
+        const liveLayers = storage.get("layers");
+        const layer = liveLayers.get(self.presence.selection[0]);
+
+        if (layer) {
+            layer.update(bounds);
+        }
+    }, [canvasState]);
+
+
+    // Called when user presses on a resize handle of selection box
+    const onResizeHandlePointerDown = useCallback((
+        corner: Side,
+        initialBounds: XYWH,
+    ) => {
+
+        history.pause();
+        setCanvasState({
+            mode: CanvasMode.Resizing,
+            initialBounds,
+            corner,
+        });
+    }, [history]);
+
     const onWheel = useCallback((e: React.WheelEvent) => {
         setCamera((camera) => ({
             x: camera.x - e.deltaX,
@@ -91,8 +126,12 @@ export const Canvas = ({boardId} : CanvasProps) => {
 
         const current = pointerEventToCanvasPoint(e, camera)
 
+        if (canvasState.mode === CanvasMode.Resizing) {
+            resizeSelectedLayer(current);
+        }
+
         setMyPresence({ cursor: current });
-    }, []);
+    }, [camera, canvasState, resizeSelectedLayer]);
 
     const onPointerLeave = useMutation(({ setMyPresence }) => {
         setMyPresence({ cursor: null });
@@ -204,7 +243,7 @@ export const Canvas = ({boardId} : CanvasProps) => {
                     ))}
 
                     <SelectionBox
-                        onResizeHandlePointerDown={()=>{}}
+                        onResizeHandlePointerDown={onResizeHandlePointerDown}
                     />
 
                     <CursorPresense/>
