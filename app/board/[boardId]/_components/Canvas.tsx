@@ -111,6 +111,13 @@ export const Canvas = ({boardId} : CanvasProps) => {
         setCanvasState({ mode: CanvasMode.Translating, current: point});
     }, [canvasState]);
 
+    const unselectLayers = useMutation((
+        {self, setMyPresence}
+    ) => {
+        if (self.presence.selection.length > 0) {
+            setMyPresence({ selection: [] }, { addToHistory: true });
+        }
+    }, []);
 
     // resize logic
     const resizeSelectedLayer = useMutation((
@@ -171,19 +178,36 @@ export const Canvas = ({boardId} : CanvasProps) => {
         setMyPresence({ cursor: null });
     }, []);
 
+
+    const onPointerDown = useCallback((e: React.PointerEvent) => {
+        const point = pointerEventToCanvasPoint(e, camera);
+
+        if (canvasState.mode === CanvasMode.Inserting) {
+            return;
+        }
+
+        // TODO: Add case for drawing
+
+        setCanvasState({ origin: point, mode: CanvasMode.Pressing });
+    }, [camera, canvasState.mode, setCanvasState]);
+
     // when pointer is up, call insertLayer() function
     const onPointerUp = useMutation((
         {},
         e
     ) => {
         const point = pointerEventToCanvasPoint(e, camera);
-
-        if ( canvasState.mode === CanvasMode.Inserting ) {
+        if ( canvasState.mode === CanvasMode.Pressing || canvasState.mode === CanvasMode.None) {
+            unselectLayers();
+            setCanvasState({
+                mode: CanvasMode.None,
+            });
+        } else if ( canvasState.mode === CanvasMode.Inserting ) {
             insertLayer(canvasState.layerType, point);
         } else {
             setCanvasState({
                 mode: CanvasMode.None,
-            })
+            });
         }
 
         history.resume();
@@ -192,7 +216,8 @@ export const Canvas = ({boardId} : CanvasProps) => {
         camera,
         canvasState,
         history,
-        insertLayer 
+        insertLayer,
+        unselectLayers,
     ]);
 
     // A function to allow selecting any layer/shape
@@ -260,6 +285,7 @@ export const Canvas = ({boardId} : CanvasProps) => {
                 onPointerMove={onPointerMove}
                 onPointerLeave={onPointerLeave}
                 onPointerUp={onPointerUp}
+                onPointerDown={onPointerDown}
             >
                 {/* g tag is for grouping */}
                 <g
