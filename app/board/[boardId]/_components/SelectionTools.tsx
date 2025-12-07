@@ -1,7 +1,7 @@
 "use client";
 
 import { memo } from "react";
-import { Trash2 } from "lucide-react";
+import { BringToFront, SendToBack, Trash2 } from "lucide-react";
 
 import { Hint } from "@/components/Hint";
 import { Camera, Color } from "@/types/canvas";
@@ -22,6 +22,80 @@ export const SelectionTools = memo(({
     setLastUsedColor,
 }: SelectionToolsProps) => {
     const selection = useSelf((me) => me.presence.selection);
+
+    // const sendBackward = useMutation((
+    //     { storage }
+    // ) => {
+    //     const liveLayerIds = storage.get("layerIds");
+    //     const indices: number[] = [];
+
+    //     const arr = liveLayerIds.toArray();
+
+    //     for (let i=0; i<arr.length; i++) {
+    //         if (selection?.includes(arr[i])) {
+    //             indices.push(i);
+    //         }
+    //     }
+
+    //     for (let i=0; i<indices.length; i++) {
+    //         liveLayerIds.move(indices[i], i);
+    //     }
+    // }, [selection]);
+
+    // const bringForward = useMutation((
+    //     { storage }
+    // ) => {
+    //     const liveLayerIds = storage.get("layerIds");
+    //     const indices: number[] = [];
+
+    //     const arr = liveLayerIds.toArray();
+
+    //     for (let i=0; i<arr.length; i++) {
+    //         if (selection?.includes(arr[i])) {
+    //             indices.push(i);
+    //         }
+    //     }
+
+    //     for (let i=0; i<indices.length; i++) {
+    //         liveLayerIds.move(indices[i], arr.length-i-1);
+    //     }
+    // }, [selection]);
+
+    const sendBackward = useMutation(({ storage }) => {
+        const liveLayerIds = storage.get("layerIds");
+        const arr = liveLayerIds.toArray();
+
+        let selectedIndex = -1;
+        for (let i = arr.length - 1; i >= 0; i--) {
+            if (selection?.includes(arr[i])) {
+                selectedIndex = i;
+                break;
+            }
+        }
+
+        if (selectedIndex > 0) {
+            const destinationIndex = selectedIndex - 1;
+            liveLayerIds.move(selectedIndex, destinationIndex);
+        }
+    }, [selection]);
+
+    const bringForward = useMutation(({ storage }) => {
+        const liveLayerIds = storage.get("layerIds");
+        const arr = liveLayerIds.toArray();
+
+        let selectedIndex = -1;
+        for (let i = 0; i < arr.length; i++) {
+            if (selection?.includes(arr[i])) {
+                selectedIndex = i;
+                break;
+            }
+        }
+
+        if (selectedIndex !== -1 && selectedIndex < arr.length - 1) {
+            const destinationIndex = selectedIndex + 1;
+            liveLayerIds.move(selectedIndex, destinationIndex);
+        }
+    }, [selection]);
 
     const setFill = useMutation((
         { storage },
@@ -59,6 +133,28 @@ export const SelectionTools = memo(({
             <ColorPicker
                 onChange={setFill}
             />
+
+            <div className="flex flex-col gap-y-0.5">
+                <Hint label="Bring to front">
+                    <Button
+                        variant="board"
+                        size="icon"
+                        onClick={bringForward}
+                    >
+                        <BringToFront/>
+                    </Button>
+                </Hint>
+                <Hint label="Send to back">
+                    <Button
+                        variant="board"
+                        size="icon"
+                        onClick={sendBackward}
+                    >
+                        <SendToBack/>
+                    </Button>
+                </Hint>
+
+            </div>
 
             <div className="flex items-center pl-2 ml-2 border-l border-neutral-200">
                 <Hint label="Delete">
