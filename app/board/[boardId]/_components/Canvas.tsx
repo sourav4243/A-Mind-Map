@@ -18,10 +18,10 @@ import { Camera, CanvasMode, CanvasState, Color, LayerType, Point, Side, XYWH } 
 import { Info } from "./Info";
 import { Participants } from "./Participants";
 import { Toolbar } from "./Toolbar";
+import { SelectionTools } from "./SelectionTools";
 import { LayerPreview } from "./LayerPreview"; 
 import { CursorPresense } from "./CursorsPresense";
 import { SelectionBox } from "./SelectionBox";
-import { STORE_KEY_PANEL_SIZE_PREFIX } from "next/dist/next-devtools/dev-overlay/shared";
 
 const MAX_LAYERS = 100;
 
@@ -276,6 +276,11 @@ export const Canvas = ({boardId} : CanvasProps) => {
                 canRedo={canRedo}
                 undo={history.undo}
                 redo={history.redo}
+            />
+
+            <SelectionTools
+                camera={camera}
+                setLastUsedColor={setLastUsedColor}
             />
 
             {/* svg is scalable vector graphics coontainer. shapes never blur on zoom.. as vector based, not pixel images*/}
