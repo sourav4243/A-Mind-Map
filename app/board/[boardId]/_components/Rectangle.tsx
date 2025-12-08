@@ -25,6 +25,7 @@ export const Rectangle = ({
             }}
             x={0}
             y={0}
+            rx={5}
             width={width}
             height={height}
             strokeWidth={1}
