@@ -23,59 +23,36 @@ export const SelectionTools = memo(({
 }: SelectionToolsProps) => {
     const selection = useSelf((me) => me.presence.selection);
 
-    // const sendBackward = useMutation((
-    //     { storage }
-    // ) => {
-    //     const liveLayerIds = storage.get("layerIds");
-    //     const indices: number[] = [];
-
-    //     const arr = liveLayerIds.toArray();
-
-    //     for (let i=0; i<arr.length; i++) {
-    //         if (selection?.includes(arr[i])) {
-    //             indices.push(i);
-    //         }
-    //     }
-
-    //     for (let i=0; i<indices.length; i++) {
-    //         liveLayerIds.move(indices[i], i);
-    //     }
-    // }, [selection]);
-
-    // const bringForward = useMutation((
-    //     { storage }
-    // ) => {
-    //     const liveLayerIds = storage.get("layerIds");
-    //     const indices: number[] = [];
-
-    //     const arr = liveLayerIds.toArray();
-
-    //     for (let i=0; i<arr.length; i++) {
-    //         if (selection?.includes(arr[i])) {
-    //             indices.push(i);
-    //         }
-    //     }
-
-    //     for (let i=0; i<indices.length; i++) {
-    //         liveLayerIds.move(indices[i], arr.length-i-1);
-    //     }
-    // }, [selection]);
-
     const sendBackward = useMutation(({ storage }) => {
         const liveLayerIds = storage.get("layerIds");
         const arr = liveLayerIds.toArray();
 
-        let selectedIndex = -1;
-        for (let i = arr.length - 1; i >= 0; i--) {
-            if (selection?.includes(arr[i])) {
-                selectedIndex = i;
-                break;
+        if (!selection || selection.length === 0) return;
+
+        // single selection
+        // if (selection.length === 1) {
+        //     let selectedIndex = -1;
+        //     for (let i = arr.length - 1; i >= 0; i--) {
+        //         if (arr[i] === selection[0]) {
+        //             selectedIndex = i;
+        //             break;
+        //         }
+        //     }
+        //     if (selectedIndex > 0) {
+        //         liveLayerIds.move(selectedIndex, selectedIndex - 1);
+        //     }
+        //     return;
+        // }
+
+        // multiple selection
+        const indices: number[] = [];
+        for (let i = 0; i < arr.length; i++) {
+            if (selection.includes(arr[i])) {
+                indices.push(i);
             }
         }
-
-        if (selectedIndex > 0) {
-            const destinationIndex = selectedIndex - 1;
-            liveLayerIds.move(selectedIndex, destinationIndex);
+        for (let i = 0; i < indices.length; i++) {
+            liveLayerIds.move(indices[i], i);
         }
     }, [selection]);
 
@@ -83,19 +60,35 @@ export const SelectionTools = memo(({
         const liveLayerIds = storage.get("layerIds");
         const arr = liveLayerIds.toArray();
 
-        let selectedIndex = -1;
+        if (!selection || selection.length === 0) return;
+
+        // single selection
+        // if (selection.length === 1) {
+        //     let selectedIndex = -1;
+        //     for (let i = 0; i < arr.length; i++) {
+        //         if (arr[i] === selection[0]) {
+        //             selectedIndex = i;
+        //             break;
+        //         }
+        //     }
+        //     if (selectedIndex !== -1 && selectedIndex < arr.length - 1) {
+        //         liveLayerIds.move(selectedIndex, selectedIndex + 1);
+        //     }
+        //     return;
+        // }
+
+        // multiple selection
+        const indices: number[] = [];
         for (let i = 0; i < arr.length; i++) {
-            if (selection?.includes(arr[i])) {
-                selectedIndex = i;
-                break;
+            if (selection.includes(arr[i])) {
+                indices.push(i);
             }
         }
-
-        if (selectedIndex !== -1 && selectedIndex < arr.length - 1) {
-            const destinationIndex = selectedIndex + 1;
-            liveLayerIds.move(selectedIndex, destinationIndex);
+        for (let i = indices.length - 1; i >= 0; i--) {
+            liveLayerIds.move(indices[i], arr.length - 1 - (indices.length - 1 - i));
         }
     }, [selection]);
+
 
     const setFill = useMutation((
         { storage },
