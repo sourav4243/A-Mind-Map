@@ -39,9 +39,9 @@ export const Canvas = ({boardId} : CanvasProps) => {
 
     const [camera, setCamera] = useState<Camera>({x:0, y:0})
     const [lastUsedColor, setLastUsedColor] = useState<Color>({
-        r: 113,
-        g: 23,
-        b: 83,
+        r: 0,
+        g: 0,
+        b: 0,
     });
 
     const history = useHistory();
