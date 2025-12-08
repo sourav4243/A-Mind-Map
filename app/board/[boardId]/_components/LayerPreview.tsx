@@ -1,12 +1,16 @@
 "use client";
 
+import { memo } from "react";
+
+import { colorToCss } from "@/lib/utils";
 import { LayerType } from "@/types/canvas";
 import { useStorage } from "@liveblocks/react";
-import { memo } from "react";
+
 import { Rectangle } from "./Rectangle";
 import { Ellipse } from "./Ellipse";
 import { Text } from "./Text";
 import { Note } from "./Note";
+import { Path } from "./Path";
 
 interface LayerPreviewProps {
     id: string;
@@ -28,6 +32,18 @@ export const LayerPreview = memo(({
 
     // Render based on type of layer
     switch (layer.type) {
+        case LayerType.Path:
+            return (
+                <Path
+                    key={id}
+                    x={layer.x}
+                    y={layer.y}
+                    fill={layer.fill ? colorToCss(layer.fill) : "#000"}
+                    points={layer.points}
+                    onPointerDown={(e) => onLayerPointerDown(e, id)}
+                    stroke={selectionColor}
+                />
+            )
         case LayerType.Note:
             return(
                 <Note
