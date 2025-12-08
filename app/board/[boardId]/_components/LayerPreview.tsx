@@ -5,6 +5,7 @@ import { useStorage } from "@liveblocks/react";
 import { memo } from "react";
 import { Rectangle } from "./Rectangle";
 import { Ellipse } from "./Ellipse";
+import { Text } from "./Text";
 
 interface LayerPreviewProps {
     id: string;
@@ -26,6 +27,16 @@ export const LayerPreview = memo(({
 
     // Render based on type of layer
     switch (layer.type) {
+        case LayerType.Text:
+            return (
+                <Text
+                    id={id}
+                    layer={layer}
+                    onPointerDown={onLayerPointerDown}
+                    selectionColor={selectionColor}
+                />
+            );
+
         case LayerType.Ellipse:
             return (
                 <Ellipse
@@ -34,7 +45,7 @@ export const LayerPreview = memo(({
                     onPointerDown={onLayerPointerDown}
                     selectionColor={selectionColor}
                 />
-            )
+            );
 
         case LayerType.Rectangle:
             return(
@@ -44,7 +55,7 @@ export const LayerPreview = memo(({
                     onPointerDown={onLayerPointerDown}
                     selectionColor={selectionColor}                   
                 />
-            )
+            );
         default:
             console.warn("Unknown layer type");
             return null;
