@@ -51,7 +51,7 @@ export default function Home() {
               <h1 className="text-5xl lg:text-6xl font-bold text-foreground leading-tight">
                 Collaborative 
                 <br />
-                <span className="text-primary">mind mapping</span>
+                <span className="text-primary">Thinking Space</span>
               </h1>
               <p className="text-xl text-muted-foreground leading-relaxed max-w-lg">
                 Quickest, easiest way for teams to capture, organize, and map ideas. 
