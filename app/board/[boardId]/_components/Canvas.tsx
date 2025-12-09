@@ -15,6 +15,7 @@ import {
 } from "@liveblocks/react";
 import { colorToCss, connectionIdToColor, findIntersectingLayersWithRectangle, penPointsToPathLayer, pointerEventToCanvasPoint, resizeBounds } from "@/lib/utils";
 import { Camera, CanvasMode, CanvasState, Color, LayerType, Point, Side, XYWH } from "@/types/canvas";
+import { useDisableScrollBounce } from "@/hooks/use-disable-scroll-debounce";
 
 import { Info } from "./Info";
 import { Participants } from "./Participants";
@@ -49,6 +50,7 @@ export const Canvas = ({boardId} : CanvasProps) => {
         b: 0,
     });
 
+    useDisableScrollBounce();
     const history = useHistory();
     const canUndo = useCanUndo();
     const canRedo = useCanRedo();
