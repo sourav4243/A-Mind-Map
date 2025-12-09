@@ -8,12 +8,6 @@ import { Button } from "@/components/ui/button";
 import { LayoutDashboard, Star } from "lucide-react";
 import {useSearchParams} from "next/navigation";
 
-
-const font = Poppins({
-    subsets: ["latin"],
-    weight: ["600"]
-})
-
 export const OrganizationSidebar = () =>{
 
     const searchParams = useSearchParams();
