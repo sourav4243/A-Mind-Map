@@ -1,14 +1,13 @@
 "use client";
 
 import { toast } from "sonner";
-import { Ghost, Link2, Pencil, Trash2 } from "lucide-react";
+import { Link2, Pencil, Trash2 } from "lucide-react";
 import { DropdownMenuContentProps } from "@radix-ui/react-dropdown-menu";
 import {
     DropdownMenu,
     DropdownMenuTrigger,
     DropdownMenuContent,
     DropdownMenuItem,
-    DropdownMenuSeparator
 } from "@/components/ui/dropdown-menu"
 
 import { Button } from "@/components/ui/button";
