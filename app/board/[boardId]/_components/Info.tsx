@@ -3,7 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { Menu } from "lucide-react";
 import { useQuery } from "convex/react";
-import { Poppins } from "next/font/google";
+import { Roboto } from "next/font/google";
 
 import { Hint } from "@/components/Hint";
 import { api } from "@/convex/_generated/api";
@@ -17,9 +17,9 @@ interface InfoProps {
     boardId: string;
 };
 
-const font = Poppins({
+const font = Roboto({
     subsets: ["latin"],
-    weight: ["600"]
+    weight: ["400"]
 });
 
 const TabSeparator = () => {
@@ -52,7 +52,7 @@ export const Info = ({boardId}: InfoProps) => {
             <Hint label="Edit title" side="bottom" sideOffset={5}>
                 <Button 
                     variant="board" 
-                    className="text-base font-normal px-2 hover:cursor-pointer"
+                    className={`${font.className} text-base font-normal px-2 hover:cursor-pointer`}
                     onClick={() => onOpen(data._id, data.title)}
                     >
                     {data.title}
