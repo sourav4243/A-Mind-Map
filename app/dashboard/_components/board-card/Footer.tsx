@@ -14,8 +14,8 @@ interface FooterProps {
 export const Footer = ({title, authorLabel, createdAtLabel, isFavorite, onClick, disabled}: FooterProps) => {
 
     const handleClick = ( e: React.MouseEvent<HTMLButtonElement, MouseEvent> ) => {
-        e.stopPropagation(),
-        e.preventDefault(),
+        e.stopPropagation();
+        e.preventDefault();
         onClick();
     };
 
