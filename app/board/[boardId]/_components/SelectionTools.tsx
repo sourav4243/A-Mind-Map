@@ -25,7 +25,7 @@ export const SelectionTools = memo(({
 
     const sendBackward = useMutation(({ storage }) => {
         const liveLayerIds = storage.get("layerIds");
-        const arr = liveLayerIds.toArray();
+        const arr = liveLayerIds.toImmutable();
 
         if (!selection || selection.length === 0) return;
 
@@ -58,7 +58,7 @@ export const SelectionTools = memo(({
 
     const bringForward = useMutation(({ storage }) => {
         const liveLayerIds = storage.get("layerIds");
-        const arr = liveLayerIds.toArray();
+        const arr = liveLayerIds.toImmutable();
 
         if (!selection || selection.length === 0) return;
 
