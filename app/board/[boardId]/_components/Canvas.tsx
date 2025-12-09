@@ -28,7 +28,7 @@ import { SelectionBox } from "./SelectionBox";
 import { Path } from "./Path";
 
 
-const MAX_LAYERS = 100;
+const MAX_LAYERS = 200;
 
 interface CanvasProps {
     boardId: string;
