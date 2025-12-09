@@ -4,7 +4,6 @@ import { clsx, type ClassValue } from "clsx"
 import { twMerge } from "tailwind-merge"
 
 import { Camera, Color, XYWH, Side, Point, Layer, PathLayer, LayerType } from "@/types/canvas";
-import { v } from "convex/values";
 
 const COLORS = [
   "#DC2626",
