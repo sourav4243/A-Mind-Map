@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { Suspense } from "react";
 import { ConvexClientProvider } from "@/providers/convex-client-provider";
 import { Toaster } from "sonner";
 import { ModalProvider } from "@/providers/modal-provider";
+import { Loading } from "@/components/auth/loading";
 
 
 const geistSans = Geist({
@@ -31,11 +33,13 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <ConvexClientProvider>
-          <Toaster/>
-          <ModalProvider/>
-          {children}
-        </ConvexClientProvider>
+        <Suspense fallback={<Loading/>}>
+          <ConvexClientProvider>
+            <Toaster/>
+            <ModalProvider/>
+            {children}
+          </ConvexClientProvider>
+        </Suspense>
       </body>
     </html>
   );
