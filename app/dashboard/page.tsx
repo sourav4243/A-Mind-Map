@@ -1,6 +1,7 @@
 "use client"
 
-import React from "react";
+import * as React from "react";
+import type { Usable } from "react";
 import { EmptyOrg } from "./_components/EmptyOrg";
 import { useOrganization } from "@clerk/nextjs";
 import { BoardList } from "./_components/BoardList";
@@ -11,18 +12,19 @@ interface QueryParams {
 }
 
 interface DashboardPageProps{
-    searchParams: any;
+    searchParams: Usable<QueryParams>;
 };
 
-const page = ({
+const Page = ({
     searchParams,
 } : DashboardPageProps) =>{
     const {organization} = useOrganization();
 
-    const unwrappedSearchParams = React.use(searchParams);
-    const params = unwrappedSearchParams as QueryParams;
-    const search = params.search;
-    const favorites = params.favorites;
+const params = React.use(searchParams) as QueryParams;
+  const search = params?.search;
+  const favorites = params?.favorites;
+
+
     return (
         <div className="flex-1 h-[calc(100%-80px)] p-6">
             {!organization ? (
@@ -40,4 +42,4 @@ const page = ({
     )
 }
 
-export default page;
+export default Page;
