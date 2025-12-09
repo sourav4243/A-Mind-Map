@@ -12,7 +12,7 @@ interface QueryParams {
 }
 
 interface DashboardPageProps{
-    searchParams: Usable<QueryParams>;
+    searchParams?: Promise<unknown> | undefined;
 };
 
 const Page = ({
@@ -20,9 +20,9 @@ const Page = ({
 } : DashboardPageProps) =>{
     const {organization} = useOrganization();
 
-const params = React.use(searchParams) as QueryParams;
-  const search = params?.search;
-  const favorites = params?.favorites;
+    const params = React.use(searchParams as unknown as Usable<QueryParams>) as QueryParams;
+    const search = params?.search;
+    const favorites = params?.favorites;
 
 
     return (
